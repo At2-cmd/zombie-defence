@@ -1,8 +1,12 @@
 using UnityEngine;
+using UnityEngine.AI;
 using Zenject;
 
 public class EnemyEntity : MonoBehaviour
 {
+    [Inject] IPlayerControllerDataProvider _playerControllerDataProvider;
+    [SerializeField] private NavMeshAgent navmeshAgent;
+    [SerializeField] private EnemyAnimation enemyAnimation;
     private Pool _pool;
     private void Initialize()
     {
@@ -10,11 +14,18 @@ public class EnemyEntity : MonoBehaviour
     }
     private void OnSpawned()
     {
-
+        enemyAnimation.PlayAnim(EnemyAnimation.Run);
     }
     private void OnDespawned()
     {
 
+    }
+    private void Update()
+    {
+        if (_playerControllerDataProvider.PlayerTransform != null)
+        {
+            navmeshAgent.SetDestination(_playerControllerDataProvider.PlayerTransform.position);
+        }
     }
     private void SetPool(Pool pool)
     {

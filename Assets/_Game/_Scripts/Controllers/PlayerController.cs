@@ -1,9 +1,11 @@
 using UnityEngine;
 using Zenject;
 
-public class PlayerController : MonoBehaviour, IInitializable
+public class PlayerController : MonoBehaviour, IInitializable, IPlayerControllerDataProvider
 {
     [SerializeField] private PlayerEntity playerEntity;
+    public Transform PlayerTransform => playerEntity.transform;
+
     public void Initialize()
     {
         if (playerEntity == null)
