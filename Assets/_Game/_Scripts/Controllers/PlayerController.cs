@@ -3,12 +3,14 @@ using Zenject;
 
 public class PlayerController : MonoBehaviour, IInitializable
 {
-    [SerializeField] private PlayerEntity _playerEntity;
+    [SerializeField] private PlayerEntity playerEntity;
     public void Initialize()
     {
-        if (_playerEntity == null)
+        if (playerEntity == null)
         {
             Debug.LogError("Player Entity is not assigned! Please assign.");
+            return;
         }
+        playerEntity.Initialize();
     }
 }
