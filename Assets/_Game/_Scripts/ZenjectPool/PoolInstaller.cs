@@ -3,13 +3,13 @@ using Zenject;
 
 public class PoolInstaller : MonoInstaller
 {
-    [SerializeField] private SamplePoolElement sampleElement;
+    [SerializeField] private EnemyEntity enemyEntity;
     public override void InstallBindings()
     {
-        Container.BindMemoryPool<SamplePoolElement, SamplePoolElement.Pool>()
+        Container.BindMemoryPool<EnemyEntity, EnemyEntity.Pool>()
                 .WithInitialSize(10)
                 .ExpandByDoubling()
-                .FromComponentInNewPrefab(sampleElement)
-                .UnderTransformGroup("SampleElements");
+                .FromComponentInNewPrefab(enemyEntity)
+                .UnderTransformGroup("EnemyEntities");
     }
 }
