@@ -6,6 +6,7 @@ public class PlayerRunningState : PlayerStateBase
     public override void EnterState(PlayerEntity player)
     {
         Debug.Log("Running State");
+        player.PlayerAnimation.PlayAnim(PlayerAnimation.Run);
     }
 
     public override void FixedUpdateState(PlayerEntity player)

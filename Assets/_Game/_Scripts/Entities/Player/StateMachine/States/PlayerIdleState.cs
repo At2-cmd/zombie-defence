@@ -6,6 +6,7 @@ public class PlayerIdleState : PlayerStateBase
     public override void EnterState(PlayerEntity player)
     {
         Debug.Log("Idle State");
+        player.PlayerAnimation.PlayAnim(PlayerAnimation.Idle);
     }
     public override void UpdateState(PlayerEntity player)
     {
