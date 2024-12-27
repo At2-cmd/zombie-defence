@@ -4,29 +4,48 @@ using Zenject;
 
 public class EnemyEntity : MonoBehaviour
 {
-    [Inject] IPlayerControllerDataProvider _playerControllerDataProvider;
+    [Inject] private IPlayerControllerDataProvider _playerControllerDataProvider;
     [SerializeField] private NavMeshAgent navmeshAgent;
     [SerializeField] private EnemyAnimation enemyAnimation;
+
+    [Header("Enemy State Machine")]
+    private EnemyStateBase _currentState;
+    public EnemyIdleState IdleState = new EnemyIdleState();
+    public EnemyWalkState WalkState = new EnemyWalkState();
+    public EnemyAttackState AttackState= new EnemyAttackState();
+    public EnemyDieState DieState = new EnemyDieState();
+
     private Pool _pool;
+    private Transform _transform;
+
+    public EnemyAnimation EnemyAnimation => enemyAnimation;
+    public NavMeshAgent NavMeshAgent => navmeshAgent;
+    public Transform Transform => _transform;
+    public Transform PlayerTransform => _playerControllerDataProvider.PlayerTransform;
+    public float DistanceToPlayer => (_transform.position - _playerControllerDataProvider.PlayerTransform.position).sqrMagnitude;
+
     private void Initialize()
     {
+        _transform = transform;
         enemyAnimation.Initialize();
     }
+
     private void OnSpawned()
     {
-        enemyAnimation.PlayAnim(EnemyAnimation.Walk);
-    }
-    private void OnDespawned()
-    {
-
+        _currentState = WalkState;
+        _currentState.EnterState(this);
     }
     private void Update()
     {
-        if (_playerControllerDataProvider.PlayerTransform != null)
-        {
-            navmeshAgent.SetDestination(_playerControllerDataProvider.PlayerTransform.position);
-        }
+        _currentState.UpdateState(this);
     }
+
+    public void SwitchState(EnemyStateBase newState)
+    {
+        _currentState = newState;
+        _currentState.EnterState(this);
+    }
+
     private void SetPool(Pool pool)
     {
         _pool = pool;
@@ -34,12 +53,18 @@ public class EnemyEntity : MonoBehaviour
 
     private void SetPosition(Vector3 position)
     {
-        transform.position = position;
+        _transform.position = position;
     }
+
     public void Despawn()
     {
         if (!gameObject.activeSelf) return;
         _pool.Despawn(this);
+    }
+
+    private void OnDespawned()
+    {
+        // Cleanup logic if needed
     }
 
     public class Pool : MonoMemoryPool<Vector3, EnemyEntity>

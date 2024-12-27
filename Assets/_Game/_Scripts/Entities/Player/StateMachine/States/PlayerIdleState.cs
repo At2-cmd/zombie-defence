@@ -13,7 +13,7 @@ public class PlayerIdleState : PlayerStateBase
         if (Input.GetMouseButton(0))
         {
             if (player.InputDataProvider.GetMovementVector().magnitude < .1f) return; //If not enough force implemented.
-            player.SwitchState(player.runState);
+            player.SwitchState(player.RunState);
         }
     }
 }

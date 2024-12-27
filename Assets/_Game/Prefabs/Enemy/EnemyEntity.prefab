@@ -49,6 +49,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   navmeshAgent: {fileID: 5740316382438046336}
   enemyAnimation: {fileID: 3819469190101920638}
+  attackRange: 0.5
+  attackCooldown: 1.5
 --- !u!114 &3819469190101920638
 MonoBehaviour:
   m_ObjectHideFlags: 0

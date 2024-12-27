@@ -1,7 +1,7 @@
 using UnityEngine;
 using Zenject;
 
-public class PlayerRunningState : PlayerStateBase
+public class PlayerRunState : PlayerStateBase
 {
     public override void EnterState(PlayerEntity player)
     {
@@ -18,7 +18,7 @@ public class PlayerRunningState : PlayerStateBase
     {
         if (Input.GetMouseButtonUp(0) || player.InputDataProvider.GetMovementVector().magnitude < .1f) //If mouse released or force is not enough
         {
-            player.SwitchState(player.idleState);
+            player.SwitchState(player.IdleState);
         }
         player.PlayerMovement.LookAtForwardDirection(player.InputDataProvider.GetMovementVector().normalized);
     }

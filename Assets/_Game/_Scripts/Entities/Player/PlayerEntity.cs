@@ -6,13 +6,12 @@ public class PlayerEntity : MonoBehaviour
     [Inject] IInputDataProvider _inputDataProvider;
     [SerializeField] private PlayerMovement playerMovement;
     [SerializeField] private PlayerAnimation playerAnimation;
-    
-    //State Machine
-    private PlayerStateBase _currentState;
-    public PlayerIdleState idleState = new PlayerIdleState();
-    public PlayerRunningState runState = new PlayerRunningState();
 
-    //Component Read-Only Getters
+    [Header("Player State Machine")]
+    private PlayerStateBase _currentState;
+    public PlayerIdleState IdleState = new PlayerIdleState();
+    public PlayerRunState RunState = new PlayerRunState();
+
     public PlayerMovement PlayerMovement => playerMovement;
     public PlayerAnimation PlayerAnimation => playerAnimation;
     public IInputDataProvider InputDataProvider => _inputDataProvider;
@@ -20,7 +19,7 @@ public class PlayerEntity : MonoBehaviour
     {
         playerMovement.Initialize();
         playerAnimation.Initialize();
-        _currentState = idleState;
+        _currentState = IdleState;
         _currentState.EnterState(this);
     }
 
