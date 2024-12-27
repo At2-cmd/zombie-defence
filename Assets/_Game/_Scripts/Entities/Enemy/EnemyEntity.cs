@@ -1,4 +1,5 @@
 using DG.Tweening;
+using System;
 using UnityEngine;
 using UnityEngine.AI;
 using Zenject;
@@ -21,13 +22,14 @@ public class EnemyEntity : MonoBehaviour, IDamageable
     private Pool _pool;
     private Transform _transform;
     private float _currentEnemyHealth;
-    private const float _defaultInitialEnemyHealth = 2;
+    private bool _isDied;
+    private const float _defaultInitialEnemyHealth = 1;
     public EnemyAnimation EnemyAnimation => enemyAnimation;
     public NavMeshAgent NavMeshAgent => navmeshAgent;
     public Transform Transform => _transform;
     public Transform PlayerTransform => _playerControllerDataProvider.PlayerTransform;
     public float DistanceToPlayer => (_transform.position - _playerControllerDataProvider.PlayerTransform.position).sqrMagnitude;
-
+    public bool IsDied => _isDied;
     private void Initialize()
     {
         _transform = transform;
@@ -36,9 +38,16 @@ public class EnemyEntity : MonoBehaviour, IDamageable
 
     private void OnSpawned()
     {
+        ResetValues();
         _currentState = WalkState;
         _currentState.EnterState(this);
     }
+
+    private void ResetValues()
+    {
+        _isDied = false;
+    }
+
     private void Update()
     {
         _currentState.UpdateState(this);
@@ -66,7 +75,7 @@ public class EnemyEntity : MonoBehaviour, IDamageable
         _pool.Despawn(this);
     }
 
-    public void SetInitialHealth(float initialHealth = _defaultInitialEnemyHealth)
+    public void SetEnemyInitialHealth(float initialHealth = _defaultInitialEnemyHealth)
     {
         _currentEnemyHealth = initialHealth;
     }
@@ -78,12 +87,13 @@ public class EnemyEntity : MonoBehaviour, IDamageable
 
     public void TakeDamage(float damageAmount)
     {
-        SwitchState(TakeHitState);
+        if (_isDied) return;
         _currentEnemyHealth -= damageAmount;
         if (_currentEnemyHealth <= 0f)
         {
+            _isDied = true;
             SwitchState(DieState);
-            DOVirtual.DelayedCall(1f, Despawn);
+            DOVirtual.DelayedCall(2f, Despawn);
         }
     }
 

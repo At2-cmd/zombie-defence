@@ -12,7 +12,7 @@ public class EnemyController : MonoBehaviour, IInitializable
         {
             var randomSpawnPos = new Vector3(Random.Range(-5, 5), 0, Random.Range(-5, 5));
             var enemy = _enemyPool.Spawn(randomSpawnPos);
-            enemy.SetInitialHealth(3);
+            enemy.SetEnemyInitialHealth(1);
         }
     }
 }

@@ -13,6 +13,7 @@ public class BulletEntity : MonoBehaviour
     {
         if (other.TryGetComponent(out EnemyEntity enemy))
         {
+            if (enemy.IsDied) return;
             _bulletMoveTween?.Kill();
             enemy.TakeDamage(1);
             Despawn();
@@ -31,7 +32,7 @@ public class BulletEntity : MonoBehaviour
     }
     public void MoveToTarget(Vector3 targetPos, Action onBulletMovementFinishedCallback = null)
     {
-        transform.DOMove(targetPos, bulletSpeed).SetSpeedBased(true).OnComplete(() =>
+        _bulletMoveTween = transform.DOMove(targetPos, bulletSpeed).SetSpeedBased(true).OnComplete(() =>
         {
             onBulletMovementFinishedCallback?.Invoke();
         });
