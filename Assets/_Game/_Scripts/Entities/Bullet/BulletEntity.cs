@@ -6,10 +6,22 @@ using Zenject;
 public class BulletEntity : MonoBehaviour
 {
     [SerializeField] private float bulletSpeed;
+    private Tweener _bulletMoveTween;
     private Pool _pool;
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.TryGetComponent(out EnemyEntity enemy))
+        {
+            _bulletMoveTween?.Kill();
+            enemy.TakeDamage(1);
+            Despawn();
+        }
+    }
 
     public void Despawn()
     {
+        if (!gameObject.activeSelf) return;
         _pool.Despawn(this);
     }
 
@@ -30,6 +42,11 @@ public class BulletEntity : MonoBehaviour
         transform.position = position;
     }
 
+    private void OnSpawned()
+    {
+
+    }
+
     public class Pool : MonoMemoryPool<Vector3, BulletEntity>
     {
         protected override void OnCreated(BulletEntity item)
@@ -38,25 +55,11 @@ public class BulletEntity : MonoBehaviour
             item.SetPool(this);
         }
 
-        protected override void OnDespawned(BulletEntity item)
-        {
-            base.OnDespawned(item);
-        }
-
-        protected override void OnDestroyed(BulletEntity item)
-        {
-            base.OnDestroyed(item);
-        }
-
-        protected override void OnSpawned(BulletEntity item)
-        {
-            base.OnSpawned(item);
-        }
-
         protected override void Reinitialize(Vector3 position, BulletEntity item)
         {
             base.Reinitialize(position, item);
             item.SetPosition(position);
+            item.OnSpawned();
         }
     }
 }

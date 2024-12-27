@@ -1,3 +1,4 @@
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.AI;
 using Zenject;
@@ -14,10 +15,13 @@ public class EnemyEntity : MonoBehaviour, IDamageable
     public EnemyIdleState IdleState = new EnemyIdleState();
     public EnemyWalkState WalkState = new EnemyWalkState();
     public EnemyAttackState AttackState= new EnemyAttackState();
+    public EnemyTakeHitState TakeHitState= new EnemyTakeHitState();
     public EnemyDieState DieState = new EnemyDieState();
 
     private Pool _pool;
     private Transform _transform;
+    private float _currentEnemyHealth;
+    private const float _defaultInitialEnemyHealth = 2;
     public EnemyAnimation EnemyAnimation => enemyAnimation;
     public NavMeshAgent NavMeshAgent => navmeshAgent;
     public Transform Transform => _transform;
@@ -62,6 +66,11 @@ public class EnemyEntity : MonoBehaviour, IDamageable
         _pool.Despawn(this);
     }
 
+    public void SetInitialHealth(float initialHealth = _defaultInitialEnemyHealth)
+    {
+        _currentEnemyHealth = initialHealth;
+    }
+
     private void OnDespawned()
     {
 
@@ -69,7 +78,13 @@ public class EnemyEntity : MonoBehaviour, IDamageable
 
     public void TakeDamage(float damageAmount)
     {
-
+        SwitchState(TakeHitState);
+        _currentEnemyHealth -= damageAmount;
+        if (_currentEnemyHealth <= 0f)
+        {
+            SwitchState(DieState);
+            DOVirtual.DelayedCall(1f, Despawn);
+        }
     }
 
     public void DealDamage(float damageAmount)

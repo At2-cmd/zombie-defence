@@ -11,7 +11,8 @@ public class EnemyController : MonoBehaviour, IInitializable
         for (int i = 0; i < _initialEnemySpawnAmount; i++)
         {
             var randomSpawnPos = new Vector3(Random.Range(-5, 5), 0, Random.Range(-5, 5));
-            _enemyPool.Spawn(randomSpawnPos);
+            var enemy = _enemyPool.Spawn(randomSpawnPos);
+            enemy.SetInitialHealth(3);
         }
     }
 }
