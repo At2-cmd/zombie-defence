@@ -8,7 +8,7 @@ public class EnemyController : MonoBehaviour, IInitializable
 
     public void Initialize()
     {
-        for (int i = 0; i <= _initialEnemySpawnAmount; i++)
+        for (int i = 0; i < _initialEnemySpawnAmount; i++)
         {
             var randomSpawnPos = new Vector3(Random.Range(-5, 5), 0, Random.Range(-5, 5));
             _enemyPool.Spawn(randomSpawnPos);
