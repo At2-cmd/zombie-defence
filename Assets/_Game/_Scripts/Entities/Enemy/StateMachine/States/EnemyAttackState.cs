@@ -1,10 +1,8 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyAttackState : EnemyStateBase
 {
+    private float _damageAmount = 1f;
     private float _attackTimer;
     private float _attackCooldown = 2f; 
     private float _attackRange = 2.0f;
@@ -20,7 +18,7 @@ public class EnemyAttackState : EnemyStateBase
         {
             if (_attackTimer >= _attackCooldown)
             {
-                DealDamageToPlayer();
+                enemy.DealDamage(_damageAmount);
                 _attackTimer = 0f;
             }
             _attackTimer += Time.deltaTime;
@@ -29,9 +27,5 @@ public class EnemyAttackState : EnemyStateBase
         {
             enemy.SwitchState(enemy.WalkState);
         }
-    }
-    private void DealDamageToPlayer()
-    {
-        Debug.Log("Enemy Dealed Damage to Player");
     }
 }

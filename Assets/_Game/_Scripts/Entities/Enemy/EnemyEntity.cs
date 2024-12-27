@@ -2,9 +2,10 @@ using UnityEngine;
 using UnityEngine.AI;
 using Zenject;
 
-public class EnemyEntity : MonoBehaviour
+public class EnemyEntity : MonoBehaviour, IDamageable
 {
     [Inject] private IPlayerControllerDataProvider _playerControllerDataProvider;
+    [Inject] private IPlayerController _playerController;
     [SerializeField] private NavMeshAgent navmeshAgent;
     [SerializeField] private EnemyAnimation enemyAnimation;
 
@@ -17,7 +18,6 @@ public class EnemyEntity : MonoBehaviour
 
     private Pool _pool;
     private Transform _transform;
-
     public EnemyAnimation EnemyAnimation => enemyAnimation;
     public NavMeshAgent NavMeshAgent => navmeshAgent;
     public Transform Transform => _transform;
@@ -64,7 +64,17 @@ public class EnemyEntity : MonoBehaviour
 
     private void OnDespawned()
     {
-        // Cleanup logic if needed
+
+    }
+
+    public void TakeDamage(float damageAmount)
+    {
+
+    }
+
+    public void DealDamage(float damageAmount)
+    {
+        _playerController.DealDamageToPlayer(damageAmount);
     }
 
     public class Pool : MonoMemoryPool<Vector3, EnemyEntity>

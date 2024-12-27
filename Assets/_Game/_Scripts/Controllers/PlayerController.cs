@@ -1,7 +1,7 @@
 using UnityEngine;
 using Zenject;
 
-public class PlayerController : MonoBehaviour, IInitializable, IPlayerControllerDataProvider
+public class PlayerController : MonoBehaviour, IInitializable, IPlayerController, IPlayerControllerDataProvider
 {
     [SerializeField] private PlayerEntity playerEntity;
     public Transform PlayerTransform => playerEntity.transform;
@@ -15,4 +15,9 @@ public class PlayerController : MonoBehaviour, IInitializable, IPlayerController
         }
         playerEntity.Initialize();
     }
+    public void DealDamageToPlayer(float damageAmount)
+    {
+        playerEntity.TakeDamage(damageAmount);
+    }
+
 }

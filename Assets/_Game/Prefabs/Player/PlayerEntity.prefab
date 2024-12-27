@@ -82,6 +82,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerMovement: {fileID: 3940298597054973806}
   playerAnimation: {fileID: 2269412538101719487}
+  initialPlayerHealth: 10
 --- !u!114 &3940298597054973806
 MonoBehaviour:
   m_ObjectHideFlags: 0
