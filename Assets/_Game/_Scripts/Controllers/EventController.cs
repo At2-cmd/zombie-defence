@@ -10,6 +10,6 @@ public class EventController : MonoBehaviour, IInitializable
         Instance = this;
     }
 
-    public event Action OnLevelGenerated;
-    public void RaiseLevelGenerated() => OnLevelGenerated?.Invoke();
+    public event Action OnLevelProceeded;
+    public void RaiseLevelProceeded() => OnLevelProceeded?.Invoke();
 }

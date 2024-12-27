@@ -10,12 +10,15 @@ public class GameManager : MonoBehaviour, IInitializable, IGameManager
     }
     public void OnGameSuccessed()
     {
+        var currentLevelIndex = SaverManager.Load(SaverManager.Keys.LastLevelIndex,0);
+        SaverManager.Save(SaverManager.Keys.LastLevelIndex, currentLevelIndex + 1);
         _uiController.ShowSuccessPopup();
     }
     public void OnGameFailed()
     {
         _uiController.ShowFailPopup();
     }
+
 #if UNITY_EDITOR
     private void Update()
     {

@@ -16,4 +16,4 @@ MonoBehaviour:
     type: 3}
   waveGenerationAmount: 3
   waveGenerationDelay: 5
-  levelDuration: 10
+  levelDuration: 100

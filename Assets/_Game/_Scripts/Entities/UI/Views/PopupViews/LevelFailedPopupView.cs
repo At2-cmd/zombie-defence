@@ -10,6 +10,7 @@ public class LevelFailedPopupView : PopupBase
     {
         SetPopupActiveness(false);
         ShowBlackScreenOnTransition();
+        EventController.Instance.RaiseLevelProceeded();
         //TODO: Retry current level.
     }
 }

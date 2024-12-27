@@ -11,6 +11,7 @@ public class LevelCompletedPopupView : PopupBase
     {
         SetPopupActiveness(false);
         ShowBlackScreenOnTransition();
+        EventController.Instance.RaiseLevelProceeded();
         //TODO: Load next level.
     }
 }

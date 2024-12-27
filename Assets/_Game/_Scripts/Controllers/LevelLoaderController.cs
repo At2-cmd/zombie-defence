@@ -6,12 +6,12 @@ public class LevelLoaderController : MonoBehaviour, IInitializable, ILevelDataPr
 {
     [Inject] DiContainer _container;
     [SerializeField] private List<LevelScriptableObject> levelDatas;
-    [SerializeField] private int levelIndex;
+    private int _loopedLevelIndex => CalculateLoopedIndex(SaverManager.Load(SaverManager.Keys.LastLevelIndex,0));
 
     private GameObject _currentLevelPrefab;
-    public int WaveGenerationAmountForLevel => levelDatas[levelIndex].WaveGenerationAmount;
-    public float WaveGenerationDelayForLevel => levelDatas[levelIndex].WaveGenerationDelay;
-    public float LevelDuration => levelDatas[levelIndex].LevelDuration;
+    public int WaveGenerationAmountForLevel => levelDatas[_loopedLevelIndex].WaveGenerationAmount;
+    public float WaveGenerationDelayForLevel => levelDatas[_loopedLevelIndex].WaveGenerationDelay;
+    public float LevelDuration => levelDatas[_loopedLevelIndex].LevelDuration;
 
     public void Initialize()
     {
@@ -20,12 +20,12 @@ public class LevelLoaderController : MonoBehaviour, IInitializable, ILevelDataPr
     }
     private void Subscribe()
     {
-
+        EventController.Instance.OnLevelProceeded += OnLevelProceededHandler;
     }
 
     private void Unsubscribe()
     {
-
+        EventController.Instance.OnLevelProceeded -= OnLevelProceededHandler;
     }
 
     private void OnDestroy()
@@ -33,15 +33,15 @@ public class LevelLoaderController : MonoBehaviour, IInitializable, ILevelDataPr
         Unsubscribe();
     }
 
-    private void OnLevelGeneratedHandler()
+    private void OnLevelProceededHandler()
     {
         GenerateLevelPrefab();
     }
     private void GenerateLevelPrefab()
     {
         if (_currentLevelPrefab) Destroy(_currentLevelPrefab);
-        _currentLevelPrefab = _container.InstantiatePrefab(levelDatas[levelIndex].LevelPrefab);
-        EventController.Instance.RaiseLevelGenerated();
+        Debug.Log("LEVEL INDEX IS : " + _loopedLevelIndex);
+        _currentLevelPrefab = _container.InstantiatePrefab(levelDatas[_loopedLevelIndex].LevelPrefab);
     }
 
     private int CalculateLoopedIndex(int levelIndex)
