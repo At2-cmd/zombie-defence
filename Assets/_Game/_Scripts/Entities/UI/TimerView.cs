@@ -8,11 +8,12 @@ public class TimerView : MonoBehaviour
     [Inject] IGameManager _gameManager;
     [SerializeField] private TMP_Text durationText;
     private float _levelDuration;
+    private Coroutine _timerCoroutine;
     private WaitForSeconds _oneSecond = new WaitForSeconds(1);
     public void Initialize(float levelDuration)
     {
         _levelDuration = levelDuration;
-        StartCoroutine(StartCountdown());
+        _timerCoroutine = StartCoroutine(StartCountdown());
     }
 
     private void SetDurationText(float remainingTime)
@@ -34,5 +35,13 @@ public class TimerView : MonoBehaviour
 
         SetDurationText(0);
         _gameManager.OnGameSuccessed();
+    }
+
+    public void StopTimer()
+    {
+        if (_timerCoroutine != null)
+        {
+            StopCoroutine(_timerCoroutine);
+        }
     }
 }
