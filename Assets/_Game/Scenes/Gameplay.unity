@@ -197,6 +197,11 @@ PrefabInstance:
       propertyPath: _floatingJoystick
       value: 
       objectReference: {fileID: 318608072}
+    - target: {fileID: 2158960276331059381, guid: de54a1eb5086d4240b08def7262da228,
+        type: 3}
+      propertyPath: timerView
+      value: 
+      objectReference: {fileID: 853420697105035301}
     - target: {fileID: 7427519961709433567, guid: de54a1eb5086d4240b08def7262da228,
         type: 3}
       propertyPath: m_RootOrder
@@ -412,6 +417,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 52a8117e9be6db041bfe0f6f40fe4366, type: 3}
+--- !u!114 &853420697105035301 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3606290013849143858, guid: 52a8117e9be6db041bfe0f6f40fe4366,
+    type: 3}
+  m_PrefabInstance: {fileID: 853420697105035300}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6566937a13e11854dbe5d0ffa969a7ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2017101585124706414
 PrefabInstance:
   m_ObjectHideFlags: 0

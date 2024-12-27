@@ -11,5 +11,6 @@ public class GameManagerInstaller : MonoInstaller
         Container.BindInterfacesTo<InputController>().FromComponentInHierarchy().AsSingle();
         Container.BindInterfacesTo<PlayerController>().FromComponentInHierarchy().AsSingle();
         Container.BindInterfacesTo<EnemyController>().FromComponentInHierarchy().AsSingle();
+        Container.BindInterfacesTo<UIController>().FromComponentInHierarchy().AsSingle();
     }
 }
