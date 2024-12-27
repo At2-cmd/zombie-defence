@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using Zenject;
 
@@ -8,6 +9,7 @@ public class PlayerController : MonoBehaviour, IInitializable, IPlayerController
 
     public void Initialize()
     {
+        Subscribe();
         if (playerEntity == null)
         {
             Debug.LogError("Player Entity is not assigned! Please assign.");
@@ -15,9 +17,32 @@ public class PlayerController : MonoBehaviour, IInitializable, IPlayerController
         }
         playerEntity.Initialize();
     }
+
+    private void OnDestroy()
+    {
+        Unsubscribe();
+    }
+    private void Subscribe()
+    {
+        EventController.Instance.OnLevelProceeded += OnLevelProceededHandler;
+    }
+    private void Unsubscribe()
+    {
+        EventController.Instance.OnLevelProceeded -= OnLevelProceededHandler;
+    }
+
+    private void OnLevelProceededHandler()
+    {
+        playerEntity.OnLevelProceeded();
+    }
+
     public void DealDamageToPlayer(float damageAmount)
     {
         playerEntity.TakeDamage(damageAmount);
     }
 
+    public void SetPlayableStatusOfPlayer(bool status)
+    {
+        playerEntity.SetPlayableStatus(status);
+    }
 }

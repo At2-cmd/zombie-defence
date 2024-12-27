@@ -5,6 +5,7 @@ public class GameManager : MonoBehaviour, IInitializable, IGameManager
 {
     [Inject] IUIController _uiController;
     [Inject] IEnemyController _enemyController;
+    [Inject] IPlayerController _playerController;
     public void Initialize()
     {
 
@@ -15,6 +16,7 @@ public class GameManager : MonoBehaviour, IInitializable, IGameManager
         _uiController.ShowSuccessPopup();
         _enemyController.StopWaveGeneration();
         _enemyController.DespawnAllActiveEnemies();
+        _playerController.SetPlayableStatusOfPlayer(false);
 
         var currentLevelIndex = SaverManager.Load(SaverManager.Keys.LastLevelIndex,0);
         SaverManager.Save(SaverManager.Keys.LastLevelIndex, currentLevelIndex + 1);
@@ -26,6 +28,7 @@ public class GameManager : MonoBehaviour, IInitializable, IGameManager
         _uiController.ShowFailPopup();
         _enemyController.StopWaveGeneration();
         _enemyController.DespawnAllActiveEnemies();
+        _playerController.SetPlayableStatusOfPlayer(false);
     }
 
 

@@ -18,7 +18,7 @@ public class PlayerEntity : MonoBehaviour, IDamageable
     private float _currentPlayerHealth;
     public PlayerMovement PlayerMovement => playerMovement;
     public PlayerAnimation PlayerAnimation => playerAnimation;
-
+    private bool _isPlayerInPlayableStatus;
 
     public IInputDataProvider InputDataProvider => _inputDataProvider;
     public void Initialize()
@@ -26,6 +26,12 @@ public class PlayerEntity : MonoBehaviour, IDamageable
         playerMovement.Initialize();
         playerShooter.Initialize();
         playerAnimation.Initialize();
+        OnLevelProceeded();
+    }
+
+    public void OnLevelProceeded()
+    {
+        SetPlayableStatus(true);
         _currentState = IdleState;
         _currentState.EnterState(this);
         _currentPlayerHealth = initialPlayerHealth;
@@ -33,12 +39,14 @@ public class PlayerEntity : MonoBehaviour, IDamageable
 
     private void Update()
     {
+        if (!_isPlayerInPlayableStatus) return;
         _currentState.UpdateState(this);
         playerShooter.CheckForShoot();
     }
 
     private void FixedUpdate()
     {
+        if (!_isPlayerInPlayableStatus) return;
         _currentState.FixedUpdateState(this);
     }
     public void SwitchState(PlayerStateBase newState)
@@ -57,8 +65,8 @@ public class PlayerEntity : MonoBehaviour, IDamageable
         }
     }
 
-    public void DealDamage(float damageAmount)
+    public void SetPlayableStatus(bool status)
     {
-
+        _isPlayerInPlayableStatus = status;
     }
 }
