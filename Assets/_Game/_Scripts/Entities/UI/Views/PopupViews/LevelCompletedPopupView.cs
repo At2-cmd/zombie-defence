@@ -1,3 +1,5 @@
+using DG.Tweening;
+
 public class LevelCompletedPopupView : PopupBase
 {
     public override void Initialize()
@@ -8,6 +10,7 @@ public class LevelCompletedPopupView : PopupBase
     public void OnNextLevelButtonClicked()
     {
         SetPopupActiveness(false);
+        ShowBlackScreenOnTransition();
         //TODO: Load next level.
     }
 }

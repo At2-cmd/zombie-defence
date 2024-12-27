@@ -1,3 +1,5 @@
+using DG.Tweening;
+
 public class LevelFailedPopupView : PopupBase
 {
     public override void Initialize()
@@ -7,6 +9,7 @@ public class LevelFailedPopupView : PopupBase
     public void OnRetryLevelButtonClicked()
     {
         SetPopupActiveness(false);
+        ShowBlackScreenOnTransition();
         //TODO: Retry current level.
     }
 }
