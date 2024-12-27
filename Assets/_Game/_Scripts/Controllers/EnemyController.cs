@@ -2,7 +2,7 @@ using System.Collections;
 using UnityEngine;
 using Zenject;
 
-public class EnemyController : MonoBehaviour, IInitializable
+public class EnemyController : MonoBehaviour, IInitializable, IEnemyController
 {
     [Inject] private EnemyEntity.Pool _enemyPool;
     [Inject] private ILevelDataProvider _levelDataProvider;
@@ -10,9 +10,32 @@ public class EnemyController : MonoBehaviour, IInitializable
     [SerializeField] private int _initialEnemySpawnAmount;
 
     private bool _isWaveGenerationActive;
+    private Coroutine _waveGenerationRoutine;
     private WaitForSeconds _durationBetweenWaves;
 
     public void Initialize()
+    {
+        Subscribe();
+        _durationBetweenWaves = new WaitForSeconds(_levelDataProvider.WaveGenerationDelayForLevel);
+        GenerateWave();
+        StartWaveGeneration();
+    }
+
+    private void OnDestroy()
+    {
+        Unsubscribe();
+    }
+    private void Subscribe()
+    {
+        EventController.Instance.OnLevelProceeded += OnLevelProceededHandler;
+    }
+
+    private void Unsubscribe()
+    {
+        EventController.Instance.OnLevelProceeded -= OnLevelProceededHandler;
+    }
+
+    private void OnLevelProceededHandler()
     {
         _durationBetweenWaves = new WaitForSeconds(_levelDataProvider.WaveGenerationDelayForLevel);
         GenerateWave();
@@ -46,6 +69,10 @@ public class EnemyController : MonoBehaviour, IInitializable
     public void StopWaveGeneration()
     {
         _isWaveGenerationActive = false;
+        if (_waveGenerationRoutine != null)
+        {
+            StopCoroutine(_waveGenerationRoutine);
+        }
     }
 
     public void StartWaveGeneration()
@@ -53,7 +80,7 @@ public class EnemyController : MonoBehaviour, IInitializable
         if (!_isWaveGenerationActive)
         {
             _isWaveGenerationActive = true;
-            StartCoroutine(WaveGenerationCoroutine());
+            _waveGenerationRoutine = StartCoroutine(WaveGenerationCoroutine());
         }
     }
 }
