@@ -1,27 +1,26 @@
+using System;
 using UnityEngine;
 using Zenject;
 
 public class PlayerShooter : MonoBehaviour
 {
     [Inject] BulletEntity.Pool _bulletEntitiesPool;
-    [SerializeField] private LayerMask enemyLayer;
-    private Collider[] _detectedEnemiesAround;
-    private EnemyEntity _pickedEnemy;
-    public void Initialize()
-    {
-        
-    }
-    //public void CheckForNearbyEnemy()
-    //{
-    //    if (_pickedEnemy != null) return;
+    [SerializeField] private float shootCooldown;
+    [SerializeField] private Transform bulletSpawnPoint;
+    private BulletEntity _currentBullet;
+    private float _shootTimer;
+    public void Initialize() { }
 
-    //    _detectedEnemiesAround = Physics.OverlapBox(transform.position, Vector3.one * 5, Quaternion.identity,enemyLayer);
-    //    if (_detectedEnemiesAround.Length > 0)
-    //    {
-    //        if (_detectedEnemiesAround[0].TryGetComponent(out EnemyEntity firstEnemyInArray))
-    //        {
-    //            _pickedEnemy = firstEnemyInArray;
-    //        }
-    //    }
-    //}
+    public void CheckForShoot()
+    {
+        _shootTimer += Time.deltaTime;
+        if (_shootTimer >= shootCooldown)
+        {
+            _shootTimer = 0f;
+            _currentBullet = _bulletEntitiesPool.Spawn(bulletSpawnPoint.position);
+            _currentBullet.transform.forward = bulletSpawnPoint.forward;
+            _currentBullet.MoveToTarget((_currentBullet.transform.position + _currentBullet.transform.forward * 20),
+                _currentBullet.Despawn);
+        }
+    }
 }

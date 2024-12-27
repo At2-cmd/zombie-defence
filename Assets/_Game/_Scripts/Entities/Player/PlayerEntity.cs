@@ -34,6 +34,7 @@ public class PlayerEntity : MonoBehaviour, IDamageable
     private void Update()
     {
         _currentState.UpdateState(this);
+        playerShooter.CheckForShoot();
     }
 
     private void FixedUpdate()

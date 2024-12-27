@@ -24,6 +24,7 @@ public class BulletEntity : MonoBehaviour
             onBulletMovementFinishedCallback?.Invoke();
         });
     }
+
     private void SetPosition(Vector3 position)
     {
         transform.position = position;
