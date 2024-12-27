@@ -10,6 +10,7 @@ public class EnemyEntity : MonoBehaviour, IDamageable
     [Inject] private IPlayerController _playerController;
     [SerializeField] private NavMeshAgent navmeshAgent;
     [SerializeField] private EnemyAnimation enemyAnimation;
+    [SerializeField] private Transform modelTransform;
 
     [Header("Enemy State Machine")]
     private EnemyStateBase _currentState;
@@ -45,6 +46,7 @@ public class EnemyEntity : MonoBehaviour, IDamageable
 
     private void ResetValues()
     {
+        modelTransform.localPosition = Vector3.zero;
         _isDied = false;
     }
 
@@ -93,7 +95,10 @@ public class EnemyEntity : MonoBehaviour, IDamageable
         {
             _isDied = true;
             SwitchState(DieState);
-            DOVirtual.DelayedCall(2f, Despawn);
+            DOVirtual.DelayedCall(2f, () => 
+            {
+                modelTransform.DOLocalMoveY(-1f, 1f).OnComplete(Despawn);
+            });
         }
     }
 

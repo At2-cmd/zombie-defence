@@ -50,6 +50,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   navmeshAgent: {fileID: 5740316382438046336}
   enemyAnimation: {fileID: 3819469190101920638}
+  modelTransform: {fileID: 7434131468990922528}
 --- !u!114 &3819469190101920638
 MonoBehaviour:
   m_ObjectHideFlags: 0
