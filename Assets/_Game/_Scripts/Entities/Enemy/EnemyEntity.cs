@@ -39,6 +39,8 @@ public class EnemyEntity : MonoBehaviour, IDamageable
 
     private void OnSpawned()
     {
+        modelTransform.localScale = Vector3.zero;
+        modelTransform.DOScale(Vector3.one, .5f);
         ResetValues();
         _currentState = WalkState;
         _currentState.EnterState(this);

@@ -2,13 +2,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
 
-public class LevelLoaderController : MonoBehaviour, IInitializable
+public class LevelLoaderController : MonoBehaviour, IInitializable, ILevelDataProvider
 {
     [Inject] DiContainer _container;
     [SerializeField] private List<LevelScriptableObject> levelDatas;
     [SerializeField] private int levelIndex;
-    
+
     private GameObject _currentLevelPrefab;
+    public int WaveGenerationAmountForLevel => levelDatas[levelIndex].WaveGenerationAmount;
+    public float WaveGenerationDelayForLevel => levelDatas[levelIndex].WaveGenerationDelay;
+    public float LevelDuration => levelDatas[levelIndex].LevelDuration;
 
     public void Initialize()
     {

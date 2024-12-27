@@ -14,3 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levelPrefab: {fileID: 1236878255713109311, guid: 930510112ebbde2469da6c523bea7c23,
     type: 3}
+  waveGenerationAmount: 3
+  waveGenerationDelay: 5
