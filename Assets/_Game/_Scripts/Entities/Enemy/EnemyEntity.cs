@@ -10,11 +10,11 @@ public class EnemyEntity : MonoBehaviour
     private Pool _pool;
     private void Initialize()
     {
-
+        enemyAnimation.Initialize();
     }
     private void OnSpawned()
     {
-        enemyAnimation.PlayAnim(EnemyAnimation.Run);
+        enemyAnimation.PlayAnim(EnemyAnimation.Walk);
     }
     private void OnDespawned()
     {
