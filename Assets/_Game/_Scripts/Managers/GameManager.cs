@@ -10,12 +10,14 @@ public class GameManager : MonoBehaviour, IInitializable, IGameManager
     }
     public void OnGameSuccessed()
     {
+        _uiController.StopTimer();
         var currentLevelIndex = SaverManager.Load(SaverManager.Keys.LastLevelIndex,0);
         SaverManager.Save(SaverManager.Keys.LastLevelIndex, currentLevelIndex + 1);
         _uiController.ShowSuccessPopup();
     }
     public void OnGameFailed()
     {
+        _uiController.StopTimer();
         _uiController.ShowFailPopup();
     }
 
