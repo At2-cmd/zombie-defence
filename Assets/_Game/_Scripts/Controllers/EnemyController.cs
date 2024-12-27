@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
 
@@ -12,6 +13,7 @@ public class EnemyController : MonoBehaviour, IInitializable, IEnemyController
     private bool _isWaveGenerationActive;
     private Coroutine _waveGenerationRoutine;
     private WaitForSeconds _durationBetweenWaves;
+    private List<EnemyEntity> _activeEnemiesList = new();
 
     public void Initialize()
     {
@@ -37,6 +39,7 @@ public class EnemyController : MonoBehaviour, IInitializable, IEnemyController
 
     private void OnLevelProceededHandler()
     {
+        _activeEnemiesList.Clear();
         _durationBetweenWaves = new WaitForSeconds(_levelDataProvider.WaveGenerationDelayForLevel);
         GenerateWave();
         StartWaveGeneration();
@@ -63,6 +66,7 @@ public class EnemyController : MonoBehaviour, IInitializable, IEnemyController
             var randomSpawnPosAroundPlayer = new Vector3(Random.Range(playerPos.x - 10, playerPos.x + 10),0,Random.Range(playerPos.z - 10, playerPos.z + 10));
             var enemy = _enemyPool.Spawn(randomSpawnPosAroundPlayer);
             enemy.SetEnemyInitialHealth(1);
+            _activeEnemiesList.Add(enemy);
         }
     }
 
@@ -81,6 +85,14 @@ public class EnemyController : MonoBehaviour, IInitializable, IEnemyController
         {
             _isWaveGenerationActive = true;
             _waveGenerationRoutine = StartCoroutine(WaveGenerationCoroutine());
+        }
+    }
+
+    public void DespawnAllActiveEnemies()
+    {
+        foreach (var enemy in _activeEnemiesList)
+        {
+            enemy.Despawn();
         }
     }
 }
