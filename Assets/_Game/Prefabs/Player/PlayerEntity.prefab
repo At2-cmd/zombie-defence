@@ -43,6 +43,7 @@ GameObject:
   - component: {fileID: 3212489621918529410}
   - component: {fileID: 1530138176977903647}
   - component: {fileID: 3940298597054973806}
+  - component: {fileID: 8179979759143287685}
   - component: {fileID: 2269412538101719487}
   - component: {fileID: 2983432379750920847}
   m_Layer: 0
@@ -81,6 +82,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerMovement: {fileID: 3940298597054973806}
+  playerShooter: {fileID: 8179979759143287685}
   playerAnimation: {fileID: 2269412538101719487}
   initialPlayerHealth: 10
 --- !u!114 &3940298597054973806
@@ -98,6 +100,21 @@ MonoBehaviour:
   movementSpeed: 3
   rotationSpeed: 10
   rb: {fileID: 2983432379750920847}
+--- !u!114 &8179979759143287685
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3212489621918529413}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a59a16a88ff5394daca0645ea84fe46, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 64
 --- !u!114 &2269412538101719487
 MonoBehaviour:
   m_ObjectHideFlags: 0

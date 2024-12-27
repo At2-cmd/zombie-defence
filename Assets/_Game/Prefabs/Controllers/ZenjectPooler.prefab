@@ -46,3 +46,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyEntity: {fileID: 7054912744017830798, guid: f3d483554947eff48b3c1cb6ce3a0015,
     type: 3}
+  bulletEntity: {fileID: 6755670408752427261, guid: e5657081d54e0314d92d2c934a86bdc2,
+    type: 3}

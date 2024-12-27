@@ -5,6 +5,7 @@ public class PlayerEntity : MonoBehaviour, IDamageable
 {
     [Inject] IInputDataProvider _inputDataProvider;
     [SerializeField] private PlayerMovement playerMovement;
+    [SerializeField] private PlayerShooter playerShooter;
     [SerializeField] private PlayerAnimation playerAnimation;
     [SerializeField] private float initialPlayerHealth;
 
@@ -23,6 +24,7 @@ public class PlayerEntity : MonoBehaviour, IDamageable
     public void Initialize()
     {
         playerMovement.Initialize();
+        playerShooter.Initialize();
         playerAnimation.Initialize();
         _currentState = IdleState;
         _currentState.EnterState(this);
