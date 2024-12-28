@@ -65,7 +65,7 @@ public class UIController : MonoBehaviour, IInitializable, IUIController
     {
         failedPopupView.SetPopupActiveness(true);
         failedPopupView.Initialize();
-        successPopupView.SetKillStats(_enemyController.KilledEnemyCountInLevel, SaverManager.Load(SaverManager.Keys.TotalKilledEnemy,0));
+        failedPopupView.SetKillStats(_enemyController.KilledEnemyCountInLevel, SaverManager.Load(SaverManager.Keys.TotalKilledEnemy,0));
     }
 
     public void StopTimer()
