@@ -48,3 +48,5 @@ MonoBehaviour:
     type: 3}
   bulletEntity: {fileID: 6755670408752427261, guid: e5657081d54e0314d92d2c934a86bdc2,
     type: 3}
+  bulletHitParticle: {fileID: 8972744891548239860, guid: 1fab190834e4aaa4ab59a0af95790763,
+    type: 3}

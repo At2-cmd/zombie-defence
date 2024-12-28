@@ -5,6 +5,7 @@ using Zenject;
 
 public class BulletEntity : MonoBehaviour
 {
+    [Inject] BulletHitParticle.Pool _bulletHitParticlesPool;
     [SerializeField] private float bulletSpeed;
     private Tweener _bulletMoveTween;
     private Pool _pool;
@@ -14,6 +15,7 @@ public class BulletEntity : MonoBehaviour
         if (other.TryGetComponent(out EnemyEntity enemy))
         {
             if (enemy.IsDied) return;
+            _bulletHitParticlesPool.Spawn(transform.position);
             _bulletMoveTween?.Kill();
             enemy.TakeDamage(1);
             Despawn();

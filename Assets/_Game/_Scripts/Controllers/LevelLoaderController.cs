@@ -40,7 +40,6 @@ public class LevelLoaderController : MonoBehaviour, IInitializable, ILevelDataPr
     private void GenerateLevelPrefab()
     {
         if (_currentLevelPrefab) Destroy(_currentLevelPrefab);
-        Debug.Log("LEVEL INDEX IS : " + _loopedLevelIndex);
         _currentLevelPrefab = _container.InstantiatePrefab(levelDatas[_loopedLevelIndex].LevelPrefab);
     }
 
