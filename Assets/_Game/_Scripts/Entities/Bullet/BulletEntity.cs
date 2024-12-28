@@ -32,7 +32,7 @@ public class BulletEntity : MonoBehaviour
     }
     public void MoveToTarget(Vector3 targetPos, Action onBulletMovementFinishedCallback = null)
     {
-        _bulletMoveTween = transform.DOMove(targetPos, bulletSpeed).SetSpeedBased(true).OnComplete(() =>
+        _bulletMoveTween = transform.DOMove(targetPos, bulletSpeed).SetEase(Ease.Linear).SetSpeedBased(true).OnComplete(() =>
         {
             onBulletMovementFinishedCallback?.Invoke();
         });
