@@ -1,3 +1,4 @@
+using DG.Tweening;
 using UnityEngine;
 using Zenject;
 
@@ -27,11 +28,11 @@ public class GameManager : MonoBehaviour, IInitializable, IGameManager
 
     public void OnGameFailed()
     {
-        _uiController.ShowFailPopup();
         _uiController.StopTimer();
         _enemyController.StopWaveGeneration();
         _enemyController.DespawnAllActiveEnemies();
         _playerController.SetPlayableStatusOfPlayer(false);
+        DOVirtual.DelayedCall(2, _uiController.ShowFailPopup);
     }
 
 
