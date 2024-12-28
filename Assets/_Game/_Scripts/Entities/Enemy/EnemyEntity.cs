@@ -8,6 +8,7 @@ public class EnemyEntity : MonoBehaviour, IDamageable
 {
     [Inject] private IPlayerControllerDataProvider _playerControllerDataProvider;
     [Inject] private IPlayerController _playerController;
+    [Inject] private IEnemyController _enemyController;
     [SerializeField] private NavMeshAgent navmeshAgent;
     [SerializeField] private EnemyAnimation enemyAnimation;
     [SerializeField] private Transform modelTransform;
@@ -96,6 +97,7 @@ public class EnemyEntity : MonoBehaviour, IDamageable
         if (_currentEnemyHealth <= 0f)
         {
             _isDied = true;
+            EventController.Instance.RaiseEnemyKilled();
             SwitchState(DieState);
             DOVirtual.DelayedCall(2f, () => 
             {

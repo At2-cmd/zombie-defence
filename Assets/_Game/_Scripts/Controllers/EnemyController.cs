@@ -15,6 +15,8 @@ public class EnemyController : MonoBehaviour, IInitializable, IEnemyController
     private WaitForSeconds _durationBetweenWaves;
     private List<EnemyEntity> _activeEnemiesList = new();
 
+    public int KilledEnemyCountInLevel { get; set; }
+
     public void Initialize()
     {
         Subscribe();
@@ -30,19 +32,27 @@ public class EnemyController : MonoBehaviour, IInitializable, IEnemyController
     private void Subscribe()
     {
         EventController.Instance.OnLevelProceeded += OnLevelProceededHandler;
+        EventController.Instance.OnEnemyKilled += OnEnemyKilledHandler;
     }
 
     private void Unsubscribe()
     {
         EventController.Instance.OnLevelProceeded -= OnLevelProceededHandler;
+        EventController.Instance.OnEnemyKilled -= OnEnemyKilledHandler;
     }
 
     private void OnLevelProceededHandler()
     {
+        KilledEnemyCountInLevel = 0;
         _activeEnemiesList.Clear();
         _durationBetweenWaves = new WaitForSeconds(_levelDataProvider.WaveGenerationDelayForLevel);
         GenerateWave();
         StartWaveGeneration();
+    }
+
+    private void OnEnemyKilledHandler()
+    {
+        KilledEnemyCountInLevel++;
     }
 
     private IEnumerator WaveGenerationCoroutine()

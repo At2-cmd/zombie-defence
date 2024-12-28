@@ -12,4 +12,7 @@ public class EventController : MonoBehaviour, IInitializable
 
     public event Action OnLevelProceeded;
     public void RaiseLevelProceeded() => OnLevelProceeded?.Invoke();
+    
+    public event Action OnEnemyKilled;
+    public void RaiseEnemyKilled() => OnEnemyKilled?.Invoke();
 }

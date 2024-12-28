@@ -20,7 +20,7 @@ public class TimerView : MonoBehaviour
     {
         int minutes = Mathf.FloorToInt(remainingTime / 60);
         int seconds = Mathf.FloorToInt(remainingTime % 60);
-        durationText.text = $": {minutes:00}:{seconds:00}";
+        durationText.text = $"{minutes:00}:{seconds:00}";
     }
 
     private IEnumerator StartCountdown()

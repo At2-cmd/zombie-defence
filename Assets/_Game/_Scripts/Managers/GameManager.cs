@@ -12,20 +12,23 @@ public class GameManager : MonoBehaviour, IInitializable, IGameManager
     }
     public void OnGameSuccessed()
     {
-        _uiController.StopTimer();
         _uiController.ShowSuccessPopup();
+        _uiController.StopTimer();
         _enemyController.StopWaveGeneration();
         _enemyController.DespawnAllActiveEnemies();
         _playerController.SetPlayableStatusOfPlayer(false);
 
-        var currentLevelIndex = SaverManager.Load(SaverManager.Keys.LastLevelIndex,0);
+        int currentLevelIndex = SaverManager.Load(SaverManager.Keys.LastLevelIndex,0);
+        int totalKilledEnemyCount = SaverManager.Load(SaverManager.Keys.TotalKilledEnemy,0);
+
         SaverManager.Save(SaverManager.Keys.LastLevelIndex, currentLevelIndex + 1);
+        SaverManager.Save(SaverManager.Keys.TotalKilledEnemy, totalKilledEnemyCount + _enemyController.KilledEnemyCountInLevel);
     }
 
     public void OnGameFailed()
     {
-        _uiController.StopTimer();
         _uiController.ShowFailPopup();
+        _uiController.StopTimer();
         _enemyController.StopWaveGeneration();
         _enemyController.DespawnAllActiveEnemies();
         _playerController.SetPlayableStatusOfPlayer(false);
