@@ -4,8 +4,8 @@ public class EnemyAttackState : EnemyStateBase
 {
     private float _damageAmount = 1f;
     private float _attackTimer;
-    private float _attackCooldown = 2f; 
-    private float _attackRange = 2.0f;
+    private float _attackCooldown = 1f; 
+    private float _attackRange = 1.0f;
     public override void EnterState(EnemyEntity enemy)
     {
         enemy.EnemyAnimation.PlayAnim(EnemyAnimation.Attack);
