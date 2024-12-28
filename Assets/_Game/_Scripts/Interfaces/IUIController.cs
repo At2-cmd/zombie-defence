@@ -7,4 +7,5 @@ public interface IUIController
     void ShowSuccessPopup();
     void ShowFailPopup();
     void StopTimer();
+    void SetPlayerHealthBar(float percentageAmount);
 }

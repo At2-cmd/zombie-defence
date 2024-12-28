@@ -8,6 +8,7 @@ public class UIController : MonoBehaviour, IInitializable, IUIController
     [Inject] ILevelDataProvider _levelDataProvider;
     [Inject] IEnemyController _enemyController;
     [SerializeField] private TimerView timerView;
+    [SerializeField] private PlayerHealthBarView playerHealthBarView;
     [SerializeField] private PopupBase successPopupView;
     [SerializeField] private PopupBase failedPopupView;
     [SerializeField] private TMP_Text levelText;
@@ -17,6 +18,7 @@ public class UIController : MonoBehaviour, IInitializable, IUIController
         Subscribe();
         SetLevelText();
         SetKilledEnemyCountText();
+        SetPlayerHealthBar(1);
         timerView.Initialize(_levelDataProvider.LevelDuration);
     }
     private void OnDestroy()
@@ -40,6 +42,7 @@ public class UIController : MonoBehaviour, IInitializable, IUIController
     {
         SetLevelText();
         SetKilledEnemyCountText();
+        SetPlayerHealthBar(1);
         timerView.Initialize(_levelDataProvider.LevelDuration);
     }
     private void OnEnemyKilledHandler()
@@ -73,5 +76,10 @@ public class UIController : MonoBehaviour, IInitializable, IUIController
     private void SetLevelText()
     {
         levelText.text = "Level " + (SaverManager.Load(SaverManager.Keys.LastLevelIndex, 0) + 1);
+    }
+
+    public void SetPlayerHealthBar(float percentageAmount)
+    {
+        playerHealthBarView.SetPlayerHealthBarView(percentageAmount);
     }
 }

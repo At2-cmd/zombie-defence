@@ -4,6 +4,7 @@ using Zenject;
 public class PlayerEntity : MonoBehaviour, IDamageable
 {
     [Inject] IInputDataProvider _inputDataProvider;
+    [Inject] IUIController _uiController;
     [Inject] IGameManager _gameManager;
     [SerializeField] private PlayerMovement playerMovement;
     [SerializeField] private PlayerShooter playerShooter;
@@ -60,6 +61,7 @@ public class PlayerEntity : MonoBehaviour, IDamageable
     public void TakeDamage(float damageAmount)
     {
         _currentPlayerHealth -= damageAmount;
+        _uiController.SetPlayerHealthBar((float)(_currentPlayerHealth / initialPlayerHealth));
         if (_currentPlayerHealth <= 0)
         {
             SwitchState(DieState);

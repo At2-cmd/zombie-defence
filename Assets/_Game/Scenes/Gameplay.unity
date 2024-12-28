@@ -191,6 +191,11 @@ PrefabInstance:
       objectReference: {fileID: 853420697105035303}
     - target: {fileID: 2158960276331059381, guid: de54a1eb5086d4240b08def7262da228,
         type: 3}
+      propertyPath: playerHealthBarView
+      value: 
+      objectReference: {fileID: 853420697105035305}
+    - target: {fileID: 2158960276331059381, guid: de54a1eb5086d4240b08def7262da228,
+        type: 3}
       propertyPath: killedEnemyCounterText
       value: 
       objectReference: {fileID: 1186980231}
@@ -282,6 +287,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 116954993736986714, guid: 52a8117e9be6db041bfe0f6f40fe4366,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 776613287056523040, guid: 52a8117e9be6db041bfe0f6f40fe4366,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 776613287056523040, guid: 52a8117e9be6db041bfe0f6f40fe4366,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 816470766518425649, guid: 52a8117e9be6db041bfe0f6f40fe4366,
         type: 3}
       propertyPath: m_IsActive
@@ -422,15 +442,65 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3279895289857681274, guid: 52a8117e9be6db041bfe0f6f40fe4366,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3279895289857681274, guid: 52a8117e9be6db041bfe0f6f40fe4366,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3279895289857681274, guid: 52a8117e9be6db041bfe0f6f40fe4366,
+        type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4043466166447108111, guid: 52a8117e9be6db041bfe0f6f40fe4366,
         type: 3}
       propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4498026118907390521, guid: 52a8117e9be6db041bfe0f6f40fe4366,
+        type: 3}
+      propertyPath: m_FillAmount
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4914878051538986199, guid: 52a8117e9be6db041bfe0f6f40fe4366,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4914878051538986199, guid: 52a8117e9be6db041bfe0f6f40fe4366,
+        type: 3}
+      propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5403897826271001401, guid: 52a8117e9be6db041bfe0f6f40fe4366,
         type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -38.399902
+      objectReference: {fileID: 0}
+    - target: {fileID: 5534153998889406023, guid: 52a8117e9be6db041bfe0f6f40fe4366,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5534153998889406023, guid: 52a8117e9be6db041bfe0f6f40fe4366,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8959587271346126093, guid: 52a8117e9be6db041bfe0f6f40fe4366,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8959587271346126093, guid: 52a8117e9be6db041bfe0f6f40fe4366,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 52a8117e9be6db041bfe0f6f40fe4366, type: 3}
@@ -480,6 +550,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &853420697105035305 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3716831426132991521, guid: 52a8117e9be6db041bfe0f6f40fe4366,
+    type: 3}
+  m_PrefabInstance: {fileID: 853420697105035300}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 503dc3eefa3ca1a49b25d93e5a0b44ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &2017101585124706414
