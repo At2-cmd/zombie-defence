@@ -12,7 +12,6 @@ public class GameManager : MonoBehaviour, IInitializable, IGameManager
     }
     public void OnGameSuccessed()
     {
-        _uiController.ShowSuccessPopup();
         _uiController.StopTimer();
         _enemyController.StopWaveGeneration();
         _enemyController.DespawnAllActiveEnemies();
@@ -23,6 +22,7 @@ public class GameManager : MonoBehaviour, IInitializable, IGameManager
 
         SaverManager.Save(SaverManager.Keys.LastLevelIndex, currentLevelIndex + 1);
         SaverManager.Save(SaverManager.Keys.TotalKilledEnemy, totalKilledEnemyCount + _enemyController.KilledEnemyCountInLevel);
+        _uiController.ShowSuccessPopup();
     }
 
     public void OnGameFailed()

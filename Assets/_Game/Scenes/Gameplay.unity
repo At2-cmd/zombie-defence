@@ -322,6 +322,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 816470766518425649, guid: 52a8117e9be6db041bfe0f6f40fe4366,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 816470766518425652, guid: 52a8117e9be6db041bfe0f6f40fe4366,
+        type: 3}
+      propertyPath: m_PresetInfoIsWorld
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 853420698279608921, guid: 52a8117e9be6db041bfe0f6f40fe4366,
         type: 3}
       propertyPath: m_Pivot.x
@@ -440,6 +450,16 @@ PrefabInstance:
     - target: {fileID: 1414945429525879697, guid: 52a8117e9be6db041bfe0f6f40fe4366,
         type: 3}
       propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2642759878515292409, guid: 52a8117e9be6db041bfe0f6f40fe4366,
+        type: 3}
+      propertyPath: m_PresetInfoIsWorld
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2642759878515292412, guid: 52a8117e9be6db041bfe0f6f40fe4366,
+        type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4043466166447108111, guid: 52a8117e9be6db041bfe0f6f40fe4366,

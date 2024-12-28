@@ -1,4 +1,3 @@
-using DG.Tweening;
 
 public class LevelCompletedPopupView : PopupBase
 {

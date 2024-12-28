@@ -56,11 +56,13 @@ public class UIController : MonoBehaviour, IInitializable, IUIController
     {
         successPopupView.SetPopupActiveness(true);
         successPopupView.Initialize();
+        successPopupView.SetKillStats(_enemyController.KilledEnemyCountInLevel, SaverManager.Load(SaverManager.Keys.TotalKilledEnemy,0));
     }
     public void ShowFailPopup()
     {
         failedPopupView.SetPopupActiveness(true);
         failedPopupView.Initialize();
+        successPopupView.SetKillStats(_enemyController.KilledEnemyCountInLevel, SaverManager.Load(SaverManager.Keys.TotalKilledEnemy,0));
     }
 
     public void StopTimer()
