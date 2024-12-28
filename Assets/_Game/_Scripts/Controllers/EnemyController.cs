@@ -73,7 +73,7 @@ public class EnemyController : MonoBehaviour, IInitializable, IEnemyController
 
         for (int i = 0; i < waveAmount; i++)
         {
-            var randomSpawnPosAroundPlayer = new Vector3(Random.Range(playerPos.x - 10, playerPos.x + 10),0,Random.Range(playerPos.z - 10, playerPos.z + 10));
+            var randomSpawnPosAroundPlayer = new Vector3(Random.Range(playerPos.x - 5, playerPos.x + 5),0,Random.Range(playerPos.z - 5, playerPos.z + 5));
             var enemy = _enemyPool.Spawn(randomSpawnPosAroundPlayer);
             enemy.SetEnemyInitialHealth(1);
             _activeEnemiesList.Add(enemy);
