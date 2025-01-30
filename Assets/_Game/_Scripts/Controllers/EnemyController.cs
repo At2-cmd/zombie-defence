@@ -75,7 +75,7 @@ public class EnemyController : MonoBehaviour, IInitializable, IEnemyController
         {
             var randomSpawnPosAroundPlayer = new Vector3(Random.Range(playerPos.x - 5, playerPos.x + 5),0,Random.Range(playerPos.z - 5, playerPos.z + 5));
             var enemy = _enemyPool.Spawn(randomSpawnPosAroundPlayer);
-            enemy.SetEnemyInitialHealth(1);
+            enemy.SetEnemyInitialHealth(_levelDataProvider.PerEnemyHealthForLevel);
             _activeEnemiesList.Add(enemy);
         }
     }

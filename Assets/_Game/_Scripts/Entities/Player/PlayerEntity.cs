@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using Zenject;
 
@@ -45,6 +46,7 @@ public class PlayerEntity : MonoBehaviour, IDamageable
         if (!_isPlayerInPlayableStatus) return;
         _currentState.UpdateState(this);
         playerShooter.CheckForShoot();
+
     }
 
     private void FixedUpdate()
@@ -72,5 +74,10 @@ public class PlayerEntity : MonoBehaviour, IDamageable
     public void SetPlayableStatus(bool status)
     {
         _isPlayerInPlayableStatus = status;
+    }
+
+    public void UpdateModelLookRotation(Vector3 targetRotation)
+    {
+        playerMovement.UpdateModelDirectionToPickedEnemy(targetRotation);
     }
 }

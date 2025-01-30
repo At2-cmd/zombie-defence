@@ -11,6 +11,7 @@ public class LevelLoaderController : MonoBehaviour, IInitializable, ILevelDataPr
     private GameObject _currentLevelPrefab;
     public int WaveGenerationAmountForLevel => levelDatas[_loopedLevelIndex].WaveGenerationAmount;
     public float WaveGenerationDelayForLevel => levelDatas[_loopedLevelIndex].WaveGenerationDelay;
+    public float PerEnemyHealthForLevel => levelDatas[_loopedLevelIndex].PerEnemyHealth;
     public float LevelDuration => levelDatas[_loopedLevelIndex].LevelDuration;
 
     public void Initialize()

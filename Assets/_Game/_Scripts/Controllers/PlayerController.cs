@@ -45,4 +45,9 @@ public class PlayerController : MonoBehaviour, IInitializable, IPlayerController
     {
         playerEntity.SetPlayableStatus(status);
     }
+
+    public void UpdateModelLookRotation(Vector3 targetRotation)
+    {
+        playerEntity.UpdateModelLookRotation(targetRotation);
+    }
 }

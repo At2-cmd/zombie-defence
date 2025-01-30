@@ -25,13 +25,14 @@ public class EnemyEntity : MonoBehaviour, IDamageable
     private Transform _transform;
     private float _currentEnemyHealth;
     private bool _isDied;
-    private const float _defaultInitialEnemyHealth = 1;
+    private const float _defaultInitialEnemyHealth = 3;
     public EnemyAnimation EnemyAnimation => enemyAnimation;
     public NavMeshAgent NavMeshAgent => navmeshAgent;
     public Transform Transform => _transform;
     public Transform PlayerTransform => _playerControllerDataProvider.PlayerTransform;
     public float DistanceToPlayer => (_transform.position - _playerControllerDataProvider.PlayerTransform.position).sqrMagnitude;
     public bool IsDied => _isDied;
+    public Action OnEnemyDied;
     private void Initialize()
     {
         _transform = transform;
@@ -99,6 +100,7 @@ public class EnemyEntity : MonoBehaviour, IDamageable
             _isDied = true;
             EventController.Instance.RaiseEnemyKilled();
             SwitchState(DieState);
+            OnEnemyDied?.Invoke();
             DOVirtual.DelayedCall(2f, () => 
             {
                 modelTransform.DOLocalMoveY(-1f, 1f).OnComplete(Despawn);
