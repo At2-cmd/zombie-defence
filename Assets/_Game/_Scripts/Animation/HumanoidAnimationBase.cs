@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class HumanoidAnimationBase : MonoBehaviour
+public abstract class HumanoidAnimationBase : MonoBehaviour
 {
 	[SerializeField] protected Animator animator;
 	private const float _transitionDuration = 0.25f;

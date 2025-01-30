@@ -1,4 +1,5 @@
 using DG.Tweening;
+using System;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
@@ -20,14 +21,13 @@ public class PlayerMovement : MonoBehaviour
         _transform.forward = Vector3.Lerp(_transform.forward, target, (Time.deltaTime * rotationSpeed));
     }
 
-    public void UpdateModelDirectionToPickedEnemy(Vector3 targetEnemyPos)
-    {
-        _modelLookAtTween?.Kill();
-        _modelLookAtTween = modelTransform.DOLookAt(targetEnemyPos,.2f);
-    }
-
     public void HandleRigidBodyMovement(Vector3 target)
     {
         rb.MovePosition(_transform.position + (target * movementSpeed * Time.deltaTime));
+    }
+
+    public void AdjustModelLookAt(Vector3 targetLookPos, float duration ,Action onCompleteAction)
+    {
+        modelTransform.DOLookAt(targetLookPos, duration, AxisConstraint.Y).OnComplete(() => onCompleteAction?.Invoke());
     }
 }

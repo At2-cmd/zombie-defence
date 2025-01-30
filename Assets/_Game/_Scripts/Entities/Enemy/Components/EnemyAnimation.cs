@@ -7,8 +7,4 @@ public class EnemyAnimation : HumanoidAnimationBase
     public static readonly int Attack = Animator.StringToHash("Attack");
     public static readonly int Die = Animator.StringToHash("Die");
     public static readonly int TakeHit = Animator.StringToHash("TakeHit");
-    public override void Initialize()
-    {
-        base.Initialize();
-    }
 }

@@ -28,7 +28,7 @@ public class PlayerEntity : MonoBehaviour, IDamageable
     public void Initialize()
     {
         playerMovement.Initialize();
-        playerShooter.Initialize();
+        playerShooter.Initialize(this);
         playerAnimation.Initialize();
         OnLevelProceeded();
     }
@@ -46,7 +46,6 @@ public class PlayerEntity : MonoBehaviour, IDamageable
         if (!_isPlayerInPlayableStatus) return;
         _currentState.UpdateState(this);
         playerShooter.CheckForShoot();
-
     }
 
     private void FixedUpdate()
@@ -54,6 +53,7 @@ public class PlayerEntity : MonoBehaviour, IDamageable
         if (!_isPlayerInPlayableStatus) return;
         _currentState.FixedUpdateState(this);
     }
+
     public void SwitchState(PlayerStateBase newState)
     {
         _currentState = newState;
@@ -74,10 +74,5 @@ public class PlayerEntity : MonoBehaviour, IDamageable
     public void SetPlayableStatus(bool status)
     {
         _isPlayerInPlayableStatus = status;
-    }
-
-    public void UpdateModelLookRotation(Vector3 targetRotation)
-    {
-        playerMovement.UpdateModelDirectionToPickedEnemy(targetRotation);
     }
 }
