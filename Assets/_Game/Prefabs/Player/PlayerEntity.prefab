@@ -149,6 +149,7 @@ MonoBehaviour:
   shootCooldown: 0.3
   enemyDetectionRange: 2
   bulletSpawnPoint: {fileID: 3469684855085011112}
+  modelTransform: {fileID: 3212489620381127783}
   muzzleParticle: {fileID: 7158570670982165490}
   enemyLayer:
     serializedVersion: 2

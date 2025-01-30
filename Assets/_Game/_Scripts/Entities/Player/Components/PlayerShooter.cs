@@ -4,74 +4,92 @@ using Zenject;
 
 public class PlayerShooter : MonoBehaviour
 {
-    [Inject] private BulletEntity.Pool _bulletEntitiesPool;
+    [Inject] private BulletEntity.Pool _bulletPool;
     [Inject] private IPlayerController _playerController;
-    [SerializeField] private float shootCooldown;
-    [SerializeField] private float enemyDetectionRange;
+
+    [SerializeField] private float shootCooldown = 0.5f;
+    [SerializeField] private float enemyDetectionRange = 10f;
     [SerializeField] private Transform bulletSpawnPoint;
+    [SerializeField] private Transform modelTransform;
     [SerializeField] private ParticleSystem muzzleParticle;
     [SerializeField] private LayerMask enemyLayer;
 
     private BulletEntity _currentBullet;
     private float _shootTimer;
-    private EnemyEntity _pickedEnemyEntity;
+    private EnemyEntity _targetEnemy;
 
-    public void Initialize() { }
-
+    public void Initialize(){ }
     public void CheckForShoot()
     {
         _shootTimer += Time.deltaTime;
         DetectClosestEnemy();
-        if (_shootTimer >= shootCooldown && _pickedEnemyEntity != null)
+        TryShoot();
+    }
+
+    private void TryShoot()
+    {
+        if (_shootTimer < shootCooldown || _targetEnemy == null) return;
+
+        _shootTimer = 0f;
+        ShootAtTarget();
+    }
+
+    private void ShootAtTarget()
+    {
+        muzzleParticle.Play();
+        _currentBullet = _bulletPool.Spawn(bulletSpawnPoint.position);
+        AdjustModelForward();
+        Vector3 direction = (_targetEnemy.transform.position - bulletSpawnPoint.position).normalized;
+        _currentBullet.transform.forward = direction;
+        _currentBullet.MoveToTarget(_currentBullet.transform.position + direction * 20, _currentBullet.Despawn);
+    }
+
+    private void AdjustModelForward()
+    {
+        Vector3 lookDirection = (_targetEnemy.transform.position - modelTransform.position).normalized;
+        modelTransform.forward = lookDirection;
+    }
+
+    private void DetectClosestEnemy()
+    {
+        if (_targetEnemy != null) return;
+
+        Collider[] enemyColliders = Physics.OverlapSphere(transform.position, enemyDetectionRange, enemyLayer);
+        _targetEnemy = GetClosestEnemy(enemyColliders);
+
+        if (_targetEnemy != null)
         {
-            _shootTimer = 0f;
-            muzzleParticle.Play();
-            _currentBullet = _bulletEntitiesPool.Spawn(bulletSpawnPoint.position);
-            Vector3 directionToEnemy = (_pickedEnemyEntity.transform.position - bulletSpawnPoint.position).normalized;
-            _currentBullet.transform.forward = directionToEnemy;
-            _currentBullet.MoveToTarget(_currentBullet.transform.position + directionToEnemy * 20, _currentBullet.Despawn);
+            _targetEnemy.OnEnemyDied += HandleEnemyDeath;
         }
     }
 
-    public void DetectClosestEnemy()
+    private EnemyEntity GetClosestEnemy(Collider[] enemies)
     {
-        if (_pickedEnemyEntity != null) return;
+        EnemyEntity closestEnemy = null;
+        float closestDistanceSqr = Mathf.Infinity;
 
-        Collider[] enemies = Physics.OverlapSphere(transform.position, enemyDetectionRange, enemyLayer);
-        float closestDistance = Mathf.Infinity;
-        EnemyEntity newTarget = null;
-
-        foreach (Collider enemy in enemies)
+        foreach (Collider enemyCollider in enemies)
         {
-            EnemyEntity enemyEntity = enemy.GetComponent<EnemyEntity>();
-            if (enemyEntity == null || enemyEntity.IsDied) continue;
+            EnemyEntity enemy = enemyCollider.GetComponent<EnemyEntity>();
+            if (enemy == null || enemy.IsDied) continue;
 
-            float distance = (enemy.transform.position - transform.position).sqrMagnitude;
-            if (distance < closestDistance)
+            float distanceSqr = (enemy.transform.position - transform.position).sqrMagnitude;
+            if (distanceSqr < closestDistanceSqr)
             {
-                closestDistance = distance;
-                newTarget = enemyEntity;
+                closestDistanceSqr = distanceSqr;
+                closestEnemy = enemy;
             }
         }
 
-        if (newTarget != null)
-        {
-            if (_pickedEnemyEntity != null)
-            {
-                _pickedEnemyEntity.OnEnemyDied -= OnPickedEnemyDiedHandler;
-            }
-            _pickedEnemyEntity = newTarget;
-            _pickedEnemyEntity.OnEnemyDied += OnPickedEnemyDiedHandler;
-        }
+        return closestEnemy;
     }
 
-    private void OnPickedEnemyDiedHandler()
+    private void HandleEnemyDeath()
     {
-        if (_pickedEnemyEntity != null)
-        {
-            _pickedEnemyEntity.OnEnemyDied -= OnPickedEnemyDiedHandler;
-            _pickedEnemyEntity = null;
-        }
+        if (_targetEnemy == null) return;
+
+        _targetEnemy.OnEnemyDied -= HandleEnemyDeath;
+        _targetEnemy = null;
     }
 
     private void OnDrawGizmos()
