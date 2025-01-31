@@ -95,6 +95,7 @@ public class EnemyEntity : MonoBehaviour, IDamageable
     {
         if (_isDied) return;
         _currentEnemyHealth -= damageAmount;
+        SwitchState(TakeHitState);
         if (_currentEnemyHealth <= 0f)
         {
             _isDied = true;

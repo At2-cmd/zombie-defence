@@ -6,7 +6,7 @@ public class EnemyTakeHitState : EnemyStateBase
     private float _takeHitTimer = .5f;
     public override void EnterState(EnemyEntity enemy)
     {
-        enemy.EnemyAnimation.PlayAnim(EnemyAnimation.TakeHit);
+        enemy.EnemyAnimation.PlayAnim(EnemyAnimation.TakeHit,0f);
         enemy.NavMeshAgent.isStopped = true;
     }
 
