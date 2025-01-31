@@ -12,7 +12,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private Rigidbody rb;
     [SerializeField] private Transform modelTransform;
     private Transform _transform;
-    private Tweener _modelLookAtTween;
+    private Vector3 _modelLookDirectionVector;
+    private Quaternion _targetRotation;
     public void Initialize()
     {
         _transform = transform;
@@ -27,16 +28,16 @@ public class PlayerMovement : MonoBehaviour
     {
         if (pickedTarget != null)
         {
-            Vector3 direction = pickedTarget.position - modelTransform.position;
-            Quaternion targetRotation = Quaternion.LookRotation(direction);
-            modelTransform.rotation = Quaternion.Slerp(modelTransform.rotation, targetRotation, modelRotationSpeed * Time.deltaTime);
+            _modelLookDirectionVector = pickedTarget.position - modelTransform.position;
+            _targetRotation = Quaternion.LookRotation(_modelLookDirectionVector);
+            modelTransform.rotation = Quaternion.Slerp(modelTransform.rotation, _targetRotation, modelRotationSpeed * Time.deltaTime);
         }
         else
         {
             if (_inputDataProvider.GetMovementVector().sqrMagnitude > 0.01f)
             {
-                Quaternion targetRotation = Quaternion.LookRotation(_inputDataProvider.GetMovementVector().normalized);
-                modelTransform.rotation = Quaternion.Slerp(modelTransform.rotation, targetRotation, Time.deltaTime * modelRotationSpeed);
+                _targetRotation = Quaternion.LookRotation(_inputDataProvider.GetMovementVector().normalized);
+                modelTransform.rotation = Quaternion.Slerp(modelTransform.rotation, _targetRotation, Time.deltaTime * modelRotationSpeed);
             }
         }
     }

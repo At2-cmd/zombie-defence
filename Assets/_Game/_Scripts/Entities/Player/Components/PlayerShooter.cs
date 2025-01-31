@@ -19,6 +19,8 @@ public class PlayerShooter : MonoBehaviour
     private BulletEntity _currentBullet;
     private float _shootTimer;
     private EnemyEntity _targetEnemy;
+    private float _distanceSqr;
+    private Vector3 _shootDirection;
     public Transform PickedTargetTransform => _targetEnemy?.transform;
 
     public void Initialize(){}
@@ -26,8 +28,28 @@ public class PlayerShooter : MonoBehaviour
     public void CheckForShoot()
     {
         _shootTimer += Time.deltaTime;
+
+        if (_targetEnemy != null)
+        {
+            _distanceSqr = (_targetEnemy.transform.position - transform.position).sqrMagnitude;
+            if (_distanceSqr > enemyDetectionRange * enemyDetectionRange)
+            {
+                ResetTarget();
+            }
+        }
+
         DetectClosestEnemy();
         TryShoot();
+    }
+
+    private void ResetTarget()
+    {
+        if (_targetEnemy != null)
+        {
+            _targetEnemy.OnEnemyDied -= HandleEnemyDeath;
+            _targetEnemy = null;
+            detectionRangeVisualizer.DOColor(Color.white, .1f);
+        }
     }
 
     private void TryShoot()
@@ -41,10 +63,10 @@ public class PlayerShooter : MonoBehaviour
     private void ShootAtTarget()
     {
         muzzleParticle.Play();
-        Vector3 direction = ((_targetEnemy.transform.position + (Vector3.up * 1.25f)) - bulletSpawnPoint.position).normalized;
+        _shootDirection = ((_targetEnemy.transform.position + (Vector3.up * 1.25f)) - bulletSpawnPoint.position).normalized;
         _currentBullet = _bulletPool.Spawn(bulletSpawnPoint.position);
-        _currentBullet.transform.forward = direction;
-        _currentBullet.MoveToTarget(_currentBullet.transform.position + direction * 20, _currentBullet.Despawn);
+        _currentBullet.transform.forward = _shootDirection;
+        _currentBullet.MoveToTarget(_currentBullet.transform.position + _shootDirection * 20, _currentBullet.Despawn);
     }
 
     private void DetectClosestEnemy()
@@ -91,9 +113,11 @@ public class PlayerShooter : MonoBehaviour
         detectionRangeVisualizer.DOColor(Color.white, .1f);
     }
 
+#if UNITY_EDITOR
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, enemyDetectionRange);
     }
+#endif
 }
