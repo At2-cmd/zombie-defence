@@ -33,7 +33,6 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
-
             if (_inputDataProvider.GetMovementVector().sqrMagnitude > 0.01f)
             {
                 Quaternion targetRotation = Quaternion.LookRotation(_inputDataProvider.GetMovementVector().normalized);

@@ -14,6 +14,7 @@ public class PlayerShooter : MonoBehaviour
     [SerializeField] private Transform modelTransform;
     [SerializeField] private ParticleSystem muzzleParticle;
     [SerializeField] private LayerMask enemyLayer;
+    [SerializeField] private SpriteRenderer detectionRangeVisualizer;
 
     private BulletEntity _currentBullet;
     private float _shootTimer;
@@ -56,6 +57,7 @@ public class PlayerShooter : MonoBehaviour
         if (_targetEnemy != null)
         {
             _targetEnemy.OnEnemyDied += HandleEnemyDeath;
+            detectionRangeVisualizer.DOColor(Color.red, .1f);
         }
     }
 
@@ -86,6 +88,7 @@ public class PlayerShooter : MonoBehaviour
 
         _targetEnemy.OnEnemyDied -= HandleEnemyDeath;
         _targetEnemy = null;
+        detectionRangeVisualizer.DOColor(Color.white, .1f);
     }
 
     private void OnDrawGizmos()
