@@ -28,7 +28,7 @@ public class PlayerEntity : MonoBehaviour, IDamageable
     public void Initialize()
     {
         playerMovement.Initialize();
-        playerShooter.Initialize(this);
+        playerShooter.Initialize();
         playerAnimation.Initialize();
         OnLevelProceeded();
     }
@@ -46,6 +46,7 @@ public class PlayerEntity : MonoBehaviour, IDamageable
         if (!_isPlayerInPlayableStatus) return;
         _currentState.UpdateState(this);
         playerShooter.CheckForShoot();
+        playerMovement.AdjustModelLookAt(playerShooter.PickedTargetTransform);
     }
 
     private void FixedUpdate()

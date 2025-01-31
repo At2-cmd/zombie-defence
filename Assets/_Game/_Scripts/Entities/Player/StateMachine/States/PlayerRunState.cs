@@ -19,6 +19,5 @@ public class PlayerRunState : PlayerStateBase
         {
             player.SwitchState(player.IdleState);
         }
-        player.PlayerMovement.LookAtForwardDirection(player.InputDataProvider.GetMovementVector().normalized);
     }
 }

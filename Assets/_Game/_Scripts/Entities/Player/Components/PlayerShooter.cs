@@ -18,12 +18,9 @@ public class PlayerShooter : MonoBehaviour
     private BulletEntity _currentBullet;
     private float _shootTimer;
     private EnemyEntity _targetEnemy;
-    private PlayerEntity _playerEntity;
+    public Transform PickedTargetTransform => _targetEnemy?.transform;
 
-    public void Initialize(PlayerEntity playerEntity)
-    {
-        _playerEntity = playerEntity;
-    }
+    public void Initialize(){}
 
     public void CheckForShoot()
     {
@@ -42,14 +39,11 @@ public class PlayerShooter : MonoBehaviour
 
     private void ShootAtTarget()
     {
-        _playerEntity.PlayerMovement.AdjustModelLookAt(_targetEnemy.transform.position, 0.1f, () => 
-        {
-            muzzleParticle.Play();
-            Vector3 direction = ((_targetEnemy.transform.position + (Vector3.up * 1.25f)) - bulletSpawnPoint.position).normalized;
-            _currentBullet = _bulletPool.Spawn(bulletSpawnPoint.position);
-            _currentBullet.transform.forward = direction;
-            _currentBullet.MoveToTarget(_currentBullet.transform.position + direction * 20, _currentBullet.Despawn);
-        });
+        muzzleParticle.Play();
+        Vector3 direction = ((_targetEnemy.transform.position + (Vector3.up * 1.25f)) - bulletSpawnPoint.position).normalized;
+        _currentBullet = _bulletPool.Spawn(bulletSpawnPoint.position);
+        _currentBullet.transform.forward = direction;
+        _currentBullet.MoveToTarget(_currentBullet.transform.position + direction * 20, _currentBullet.Despawn);
     }
 
     private void DetectClosestEnemy()
