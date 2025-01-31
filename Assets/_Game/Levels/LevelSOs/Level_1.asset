@@ -17,4 +17,4 @@ MonoBehaviour:
   waveGenerationAmount: 3
   waveGenerationDelay: 3
   perEnemyHealth: 3
-  levelDuration: 1000
+  levelDuration: 15
