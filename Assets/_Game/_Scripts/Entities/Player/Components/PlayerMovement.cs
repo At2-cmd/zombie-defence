@@ -21,7 +21,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void HandleRigidBodyMovement(Vector3 target)
     {
-        rb.MovePosition(_transform.position + (target * movementSpeed * Time.deltaTime));
+        rb.MovePosition(_transform.position + (target * movementSpeed * _inputDataProvider.GetMovementVector().sqrMagnitude * Time.deltaTime));
     }
 
     public void AdjustModelLookAt(Transform pickedTarget)

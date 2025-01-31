@@ -47,6 +47,7 @@ public class PlayerEntity : MonoBehaviour, IDamageable
         _currentState.UpdateState(this);
         playerShooter.CheckForShoot();
         playerMovement.AdjustModelLookAt(playerShooter.PickedTargetTransform);
+        playerAnimation.SetPlayerBlendTreeVelocityValue(_inputDataProvider.GetMovementVector().sqrMagnitude);
     }
 
     private void FixedUpdate()

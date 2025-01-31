@@ -5,7 +5,7 @@ public class PlayerRunState : PlayerStateBase
 {
     public override void EnterState(PlayerEntity player)
     {
-        player.PlayerAnimation.PlayAnim(PlayerAnimation.Run);
+
     }
 
     public override void FixedUpdateState(PlayerEntity player)
